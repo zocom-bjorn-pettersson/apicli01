@@ -1,3 +1,12 @@
+# APICLI01
+
+Det här är en API-klient som skickar API-förfrågningar (requests) till http://127.0.0.1:8080.
+
+Med den här klienten kan du:
+* Lista filmer (till /api/v1/movies/list)
+* Lägga till filmer (till /api/v1/movies/create)
+* Rensa listan av filmer på servern (OBS: Ej implementerat i servern - det får du testa göra själv)
+
 # Lästips
 
 * https://www.baeldung.com/java-http-request

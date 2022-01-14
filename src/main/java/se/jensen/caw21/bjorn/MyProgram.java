@@ -3,12 +3,14 @@ package se.jensen.caw21.bjorn;
 import java.util.Scanner;
 
 public class MyProgram {
-    ApiClient myApiClient;
+    private ApiClient myApiClient;
 
+    // Vår konstruktor som skapar ett nytt ApiClient-objekt
     public MyProgram() {
         myApiClient = new ApiClient("http://127.0.0.1:8080/api/v1");
     }
 
+    // Där vårt program startar
     public void start() {
         boolean programRunning = true;
 
@@ -45,6 +47,7 @@ public class MyProgram {
         }
     }
 
+    // Använd ApiClient för att hämta listan av filmer från servern och presentera filmerna till användaren
     public void printListOfMovies() {
         Movie[] movies = myApiClient.getMovies();
 
@@ -63,6 +66,9 @@ public class MyProgram {
         }
     }
 
+    // Använd ApiClient för att rensa listan av filmer på servern
+    // OBS: Fungerar inte om inte den metoden läggs till i servern.
+    // Uppgift: Lägg till den funktionaliteten i serven, uppdatera den här klienten (i ApiClient.java) om det behövs.
     public void clearListOfMovies() {
         if (myApiClient.clearMovies()) {
             System.out.println("List of movies cleared!");
@@ -71,6 +77,7 @@ public class MyProgram {
         }
     }
 
+    // Fråga användaren om titel och betyg för film och lägg till den här filmen på servern
     public void addMovie() {
         System.out.println("What's the movie called?");
         String title = getUserString();

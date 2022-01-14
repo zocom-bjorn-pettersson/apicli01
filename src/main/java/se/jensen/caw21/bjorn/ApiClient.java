@@ -1,24 +1,30 @@
 package se.jensen.caw21.bjorn;
 
+// Dessa paket använder vi för att läsa information från och skriva information till HTTP-anslutningar
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 
+// Dessa paket hjälper oss konvertera JSON till Java-objekt och tvärt om
+// De används när vi skickar information till servern och när vi hämtar information från servern
 import com.github.cliftonlabs.json_simple.JsonObject;
-
 import com.fasterxml.jackson.databind.*;
 
+// Detta används för att skicka datan med UTF-8 - en teckenuppsättning som låter oss använda ÅÄÖ och massa andra tecken
 import java.nio.charset.StandardCharsets;
+
 import java.util.ArrayList;
 
+// Paket vi använder för att göra HTTP-anslutningar
 import java.net.URL;
 import java.net.HttpURLConnection;
 
 public class ApiClient {
-    // Typically https://127.0.0.1:8080/api (Important: Without the / at the end)
+    // Adressen till vår server, exempelvis https://127.0.0.1:8080/api/v1 (Important: Without the / at the end)
     private String apiAddress;
     HttpURLConnection connection;
 
+    // Vår konstruktor
     public ApiClient(String apiAddress) {
         this.apiAddress = apiAddress;
     }
@@ -31,6 +37,7 @@ public class ApiClient {
         return myArrayOfStrings;
     }
 
+    // Vår metod för att hämta filmer
     public Movie[] getMovies() {
         Movie[] movies = {};
 
@@ -38,10 +45,12 @@ public class ApiClient {
 
         //System.out.println("Getting movies from " + apiAddress + target);
 
+        // Se kommentarer i metoden addMovie()
         BufferedReader reader;
         String line;
         StringBuilder responseContent = new StringBuilder();
 
+        // Se kommentarer i metoden addMovie()
         try {
             URL url = new URL(apiAddress + target);
             connection = (HttpURLConnection) url.openConnection();
@@ -67,6 +76,7 @@ public class ApiClient {
             //System.out.println(responseContent.toString());
             String jsonStr = responseContent.toString();
 
+            // Se kommentarer i metoden addMovie()
             ObjectMapper mapper = new ObjectMapper();
             movies = mapper.readValue(jsonStr, Movie[].class);
 
